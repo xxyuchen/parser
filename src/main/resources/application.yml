@@ -1,0 +1,42 @@
+  eureka:
+    instance:
+      prefer-ip-address: true
+      metadata-map:
+        env: product-environment
+        backup_env: develop-environment
+    client:
+       serviceUrl:
+          product-zone: http://dc-hadoop156:5555/eureka/
+          develop-zone: http://dc-hadoop156:5545/eureka/
+       availabilityZones:
+          product-environment: product-zone
+          develop-environment: develop-zone
+       region: product-environment
+  spring:
+    application:
+      name: service-parser
+    datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.0.154:3306/channel_database?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+      username: channel
+      password: Channel!@#321
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+    redis:
+      host: 192.168.0.153
+      port: 6379
+      pool:
+        max-idle: 100
+        min-idle: 1
+        max-active: 1000
+        max-wait: 1000
+  server:
+    port: 8092
+    context-path: /parser
+  amap:
+    api:
+      ip: http://restapi.amap.com/v3/ip?key={api_key}&ip={ip}
+      regeo: http://restapi.amap.com/v3/geocode/regeo?key={api_key}&location={location}
+    key: 5f9661edfb886982b0d7adc6bb2e2ec0
